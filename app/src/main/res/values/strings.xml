@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SlidePuzzle</string>
+    <string name="shuffle">Shuffle</string>
+    <string name="reset">Reset</string>
+</resources>
