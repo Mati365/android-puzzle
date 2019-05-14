@@ -2,4 +2,4 @@
 Simple animated 4x4 puzzle android game written as school project
 
 ### Screens
-![Screenshoot](/tmp/1.png)
+![Screenshoot](/screens/1.png)
