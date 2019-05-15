@@ -55,8 +55,8 @@ class GameBoard(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     private fun loadBoardImage(name: String): Bitmap {
         return BitmapFactory.decodeResource(
-            resources,
-            resources.getIdentifier(name, "drawable", context.packageName)
+            context.resources,
+             resources.getIdentifier(name, "drawable", context.packageName)
         )
     }
 
