@@ -112,6 +112,28 @@ class GameBoard(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     }
 
+    fun drawSlideTitle(canvas: Canvas, offset: Rect, text: String) {
+        // fill
+        paint.strokeWidth = 4.0f
+        paint.style = Paint.Style.STROKE
+        paint.color = Color.WHITE
+        canvas.drawText(
+            text,
+            offset.left + 5.0f,
+            offset.top + 13.0f,
+            paint
+        )
+
+        paint.style = Paint.Style.FILL
+        paint.color = Color.BLACK
+        canvas.drawText(
+            text,
+            offset.left + 5.0f,
+            offset.top + 13.0f,
+            paint
+        )
+    }
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
@@ -146,23 +168,10 @@ class GameBoard(context: Context, attrs: AttributeSet) : View(context, attrs) {
                     )
 
                     // fill
-                    paint.strokeWidth = 4.0f
-                    paint.style = Paint.Style.STROKE
-                    paint.color = Color.WHITE
-                    canvas.drawText(
-                        puzzle.index.toString(),
-                        renderOffset.left + 5.0f,
-                        renderOffset.top + 13.0f,
-                        paint
-                    )
-
-                    paint.style = Paint.Style.FILL
-                    paint.color = Color.BLACK
-                    canvas.drawText(
-                        puzzle.index.toString(),
-                        renderOffset.left + 5.0f,
-                        renderOffset.top + 13.0f,
-                        paint
+                    drawSlideTitle(
+                        canvas,
+                        renderOffset,
+                        (puzzle.index + 1).toString()
                     )
 
                     // Draw border around active
