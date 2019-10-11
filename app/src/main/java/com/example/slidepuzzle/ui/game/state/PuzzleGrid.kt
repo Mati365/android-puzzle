@@ -1,9 +1,9 @@
-package com.example.slidepuzzle.state
+package com.example.slidepuzzle.ui.game.state
 
 import android.graphics.Bitmap
 import android.graphics.Point
 import android.util.Size
-import com.example.slidepuzzle.utils.BitmapTile
+import com.example.slidepuzzle.ui.game.utils.BitmapTile
 import kotlin.*
 
 typealias Puzzle2DArray = Array<Array<PuzzleDescriptor?>>
@@ -15,9 +15,20 @@ enum class Direction(val offsetX: Int, val offsetY: Int) {
     RIGHT(1, 0)
 }
 
-class PuzzleGrid(sourceImage: Bitmap, val size: Size, val missingSlides: Int = 1) {
-    var bitmapTile = BitmapTile(sourceImage, size)
-    var puzzles: Puzzle2DArray = genRandomSlides(false)
+class PuzzleGrid(sourceImage: Bitmap, var size: Size, private val missingSlides: Int = 1) {
+    lateinit var puzzles: Puzzle2DArray
+        private set
+
+    private lateinit var bitmapTile: BitmapTile
+
+    init {
+        setBitmapTile(sourceImage, size)
+    }
+
+    fun setBitmapTile(sourceImage: Bitmap, size: Size) {
+        bitmapTile = BitmapTile(sourceImage, size)
+        puzzles = genRandomSlides(false)
+    }
 
     private fun genRandomSlides(shuffle: Boolean = true): Puzzle2DArray  {
         val len = size.width * size.height

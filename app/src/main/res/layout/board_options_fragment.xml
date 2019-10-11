@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <include layout="@layout/game_toolbar"/>
+
+    <android.support.constraint.ConstraintLayout
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/board_options"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.boardoptions.BoardOptionsFragment">
+        <GridView
+                android:id="@+id/images_grid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:numColumns="3"
+                android:stretchMode="columnWidth" />
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>

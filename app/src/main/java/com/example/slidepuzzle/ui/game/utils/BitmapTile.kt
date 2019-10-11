@@ -1,4 +1,4 @@
-package com.example.slidepuzzle.utils
+package com.example.slidepuzzle.ui.game.utils
 
 import android.graphics.Bitmap
 import android.util.Size

@@ -4,9 +4,10 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
+import com.example.slidepuzzle.ui.game.GameBoard
 
 class GameActivity : AppCompatActivity() {
-    fun mountBoard() {
+    private fun mountBoard() {
         val board = findViewById<GameBoard>(R.id.boardView)
 
         findViewById<Button>(R.id.shuffle).setOnClickListener {
@@ -21,8 +22,8 @@ class GameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_fullscreen)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setContentView(R.layout.game_activity)
+        setActionBar(findViewById(R.id.board_options_toolbar))
 
         mountBoard()
     }

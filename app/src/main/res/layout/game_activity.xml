@@ -7,10 +7,12 @@
              android:background="@color/app_background_color"
              tools:context=".GameActivity">
 
+    <include layout="@layout/game_toolbar"/>
+
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <com.example.slidepuzzle.GameBoard
+        <com.example.slidepuzzle.ui.game.GameBoard
                 android:id="@+id/boardView"
                 android:elevation="4dp"
                 android:layout_width="0dp"

@@ -1,4 +1,4 @@
-package com.example.slidepuzzle
+package com.example.slidepuzzle.ui.game
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -9,7 +9,8 @@ import android.util.AttributeSet
 import android.util.Size
 import android.view.View
 import android.support.v4.content.ContextCompat
-import com.example.slidepuzzle.state.PuzzleGrid
+import com.example.slidepuzzle.R
+import com.example.slidepuzzle.ui.game.state.PuzzleGrid
 
 class GameBoard(context: Context, attrs: AttributeSet) : View(context, attrs) {
     private val highlightColor = ContextCompat.getColor(context, R.color.board_active)
@@ -112,7 +113,7 @@ class GameBoard(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     }
 
-    fun drawSlideTitle(canvas: Canvas, offset: Rect, text: String) {
+    private fun drawSlideTitle(canvas: Canvas, offset: Rect, text: String) {
         // fill
         paint.strokeWidth = 4.0f
         paint.style = Paint.Style.STROKE
