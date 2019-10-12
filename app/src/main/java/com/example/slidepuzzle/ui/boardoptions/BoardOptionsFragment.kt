@@ -1,5 +1,6 @@
 package com.example.slidepuzzle.ui.boardoptions
 
+import `in`.srain.cube.views.GridViewWithHeaderAndFooter
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -9,10 +10,10 @@ import android.graphics.BitmapFactory
 import android.view.*
 import android.widget.*
 import android.content.Intent
-import android.graphics.Bitmap
 import android.support.v7.app.AppCompatActivity
 import com.example.slidepuzzle.BoardActivityParams
 import com.example.slidepuzzle.GameActivity
+import android.view.LayoutInflater
 
 class ImageCardsAdapterGridView(
     private val parentContext: Context,
@@ -72,9 +73,14 @@ class BoardOptionsFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         val context = this.context
-        val board = view?.findViewById<GridView>(R.id.images_grid)
+        val board = view?.findViewById<GridViewWithHeaderAndFooter>(R.id.images_grid)
 
         if (context != null && board != null) {
+            val layoutInflater = LayoutInflater.from(view?.context)
+            board.addHeaderView(
+                layoutInflater.inflate(R.layout.board_options_grid_header, null)
+            )
+
             board.adapter = ImageCardsAdapterGridView(
                 context,
                 BoardOptionsViewModel.PREDEFINED_IMAGES.map { (id, name) -> TitledCardInfo(
