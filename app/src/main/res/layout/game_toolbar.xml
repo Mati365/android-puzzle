@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Toolbar
+<android.support.v7.widget.Toolbar
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:theme="@style/AppToolbarTheme"
         android:id="@+id/board_options_toolbar"
         android:titleTextColor="@color/colorIcons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <Spinner
-            android:id="@+id/spinner_nav"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+    <fragment
+            android:name="com.example.slidepuzzle.ui.boardoptions.BoardSizeSpinnerFragment"
             android:layout_gravity="end"
-            android:backgroundTint="@color/colorIcons"
-            android:textColor="@color/colorIcons" />
-</Toolbar>
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+</android.support.v7.widget.Toolbar>

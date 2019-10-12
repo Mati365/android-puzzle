@@ -8,6 +8,11 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.view.*
 import android.widget.*
+import android.content.Intent
+import android.graphics.Bitmap
+import android.support.v7.app.AppCompatActivity
+import com.example.slidepuzzle.BoardActivityParams
+import com.example.slidepuzzle.GameActivity
 
 class ImageCardsAdapterGridView(
     private val parentContext: Context,
@@ -42,13 +47,14 @@ class ImageCardsAdapterGridView(
 }
 
 class BoardOptionsFragment : Fragment() {
-
     companion object {
         fun newInstance() = BoardOptionsFragment()
     }
 
-    private val viewModel: BoardOptionsViewModel by lazy {
-        ViewModelProviders.of(this).get(BoardOptionsViewModel::class.java)
+    private val viewModel: BoardOptionsViewModel? by lazy {
+        activity?.let {
+            ViewModelProviders.of(it).get(BoardOptionsViewModel::class.java)
+        }
     }
 
     override fun onCreateView(
@@ -56,7 +62,7 @@ class BoardOptionsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.board_options_fragment, container, false)
-        activity!!.setActionBar(
+        (activity as AppCompatActivity).setSupportActionBar(
             view.findViewById(R.id.board_options_toolbar)
         )
         return view
@@ -76,6 +82,20 @@ class BoardOptionsFragment : Fragment() {
                     name
                 )}.toTypedArray()
             )
+
+            board.setOnItemClickListener { _, view, _, _ ->
+                viewModel?.let {
+                    it.boardImage.value = (view.tag as TitledCardInfo).image
+
+                    GameActivity.initialConfig = BoardActivityParams(
+                        it.boardImage.value!!,
+                        it.boardSize.value!!
+                    )
+                    startActivity(
+                        Intent(this.activity, GameActivity::class.java)
+                    )
+                }
+            }
         }
     }
 }

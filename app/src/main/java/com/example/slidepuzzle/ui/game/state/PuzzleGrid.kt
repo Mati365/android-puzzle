@@ -15,19 +15,22 @@ enum class Direction(val offsetX: Int, val offsetY: Int) {
     RIGHT(1, 0)
 }
 
-class PuzzleGrid(sourceImage: Bitmap, var size: Size, private val missingSlides: Int = 1) {
+class PuzzleGrid(val sourceImage: Bitmap?, var size: Size, private val missingSlides: Int = 1) {
     lateinit var puzzles: Puzzle2DArray
         private set
 
     private lateinit var bitmapTile: BitmapTile
 
     init {
-        setBitmapTile(sourceImage, size)
+        sourceImage?.let {
+            regenerate(size, sourceImage)
+        }
     }
 
-    fun setBitmapTile(sourceImage: Bitmap, size: Size) {
-        bitmapTile = BitmapTile(sourceImage, size)
-        puzzles = genRandomSlides(false)
+    fun regenerate(newSize: Size, newImage: Bitmap? = null, shuffle: Boolean = false) {
+        size = newSize
+        bitmapTile = BitmapTile(newImage ?: sourceImage!!, newSize)
+        puzzles = genRandomSlides(shuffle)
     }
 
     private fun genRandomSlides(shuffle: Boolean = true): Puzzle2DArray  {

@@ -9,6 +9,8 @@
 
     <style name="AppToolbarTheme">
         <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">@color/colorIcons</item>
+        <item name="android:textColorSecondary">@color/colorIcons</item>
     </style>
 
     <style name="PortraitTheme" parent="AppTheme">

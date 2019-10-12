@@ -3,6 +3,7 @@ package com.example.slidepuzzle.ui.game
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
@@ -10,6 +11,7 @@ import android.util.Size
 import android.view.View
 import android.support.v4.content.ContextCompat
 import com.example.slidepuzzle.R
+import com.example.slidepuzzle.ui.boardoptions.BoardOptionsViewModel
 import com.example.slidepuzzle.ui.game.state.PuzzleGrid
 
 class GameBoard(context: Context, attrs: AttributeSet) : View(context, attrs) {
@@ -25,8 +27,8 @@ class GameBoard(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     private lateinit var activeSlide: Point
 
-    private val grid = PuzzleGrid(
-        loadBoardImage("pepe"),
+    private var grid = PuzzleGrid(
+        null,
         Size(4, 4)
     )
 
@@ -54,14 +56,12 @@ class GameBoard(context: Context, attrs: AttributeSet) : View(context, attrs) {
         )
     }
 
-    private fun loadBoardImage(name: String): Bitmap {
-        return BitmapFactory.decodeResource(
-            context.resources,
-             resources.getIdentifier(name, "drawable", context.packageName)
-        )
+    fun resize(size: Size, image: Bitmap? = null, shuffle: Boolean = true) {
+        grid.regenerate(size, image, shuffle)
+        requestLayout()
     }
 
-    fun onShuffle(reset: Boolean = false) {
+    fun shuffle(reset: Boolean = false) {
         grid.shuffle(reset)
         invalidate()
     }
@@ -104,13 +104,14 @@ class GameBoard(context: Context, attrs: AttributeSet) : View(context, attrs) {
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
-        tileSize.set(
-            0,
-            0,
-            Math.ceil(MeasureSpec.getSize(widthMeasureSpec).toDouble() / grid.size.width).toInt(),
-            Math.ceil(MeasureSpec.getSize(heightMeasureSpec).toDouble() / grid.size.height).toInt()
-        )
-
+        grid.let {
+            tileSize.set(
+                0,
+                0,
+                Math.ceil(MeasureSpec.getSize(widthMeasureSpec).toDouble() / it.size.width).toInt(),
+                Math.ceil(MeasureSpec.getSize(heightMeasureSpec).toDouble() / it.size.height).toInt()
+            )
+        }
     }
 
     private fun drawSlideTitle(canvas: Canvas, offset: Rect, text: String) {
